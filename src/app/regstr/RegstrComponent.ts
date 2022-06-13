@@ -12,45 +12,36 @@ import { DataService } from '../services/data.service';
 export class RegstrComponent implements OnInit {
   uname = "";
   acno = "";
-  pwd = "";
+  pswd = "";
 
-  //form group
+  //register form
   registerForm = this.fb.group({
-    acno:[''],
-    pwd:[''],
-    uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]]
-
-
+    uname : "",
+    acno : "",
+    pswd : ""
   })
+ 
 
   constructor(private ds: DataService, private router: Router,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
 
-  register() {
-    var uname = this.registerForm.value.uname;
-    var acno = this.registerForm.value.acno;
-    var pwd = this.registerForm.value.pwd;
-    console.log(this.registerForm.valid);
-    // if(this.registerForm.get('uname')?.errors){
-    //   alert("Invalid Username")
-    // }
+ register(){
+   var uname = this.uname
+   var acno = this.acno
+   var pswd = this.pswd
 
-    if(this.registerForm.valid){
-      const result = this.ds.register(uname, acno, pwd);
-      if (result) {
-        alert("succesfullly registered..!!!");
-        this.router.navigateByUrl("");
-      }
-      else {
-        alert("already exist...Please log in");
-      }
-    }
-    else{
-     alert("invalid form")
-    }
-   
-  }
+   const result =  this.ds.register(uname,acno,pswd)
+
+   if (result){
+     alert("Successfully registered")
+     this.router.navigateByUrl("")
+   }
+
+   else{
+     alert("Already existing customer.... Please login!")
+   }
+ }
 
 }

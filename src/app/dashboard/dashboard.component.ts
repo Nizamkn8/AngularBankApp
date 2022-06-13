@@ -8,43 +8,42 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent implements OnInit {
 
-  acno=""
-  pwd=""
-  amount=""
+ acno = ""
+ pswd = ""
+ amount = ""
 
-  acno1=""
-  pwd1=""
-  amount1=""
-
+ acno1 = ""
+ pswd1 = ""
+ amount1 = ""
   constructor(private ds:DataService) { }
 
   ngOnInit(): void {
   }
 
-
   deposit(){
-    var acno=this.acno
-    var pwd=this.pwd
-    var amount=this.amount
-    if(amount.length==0){
-      alert("please enter the amount")
-    }
-  const result=this.ds.deposit(acno,pwd,amount)
-  if(result){
-    alert(amount+"deposited successfully and new balance is :"+result)
-  }
-  }
-  withdraw() {
-    var acno1=this.acno1
-    var pwd1=this.pwd1
-    var amount1=this.amount1
-    if(amount1.length==0){
-      alert("please enter the amount")
-    }
+    var acno = this.acno
+    var pswd = this.pswd
+    var amount = this.amount
 
-    const result1=this.ds.withdraw(acno1,pwd1,amount1)
-    if(result1){
-      alert(amount1+"success and new balance is :"+result1)
+    const result = this.ds.deposit(acno,pswd,amount)
+
+    if(result){
+      alert(amount +" deposited Successfully. Balance is " + result)
     }
   }
+
+
+  withdraw(){
+    var acno = this.acno1
+    var pswd = this.pswd1
+    var amount = this.amount1
+
+    const result = this.ds.withdraw(acno,pswd,amount)
+
+    if(result){
+      alert(amount +" amount has been withdrawed.New balance is : "+ result)
+    }
+  }
+
+
 }

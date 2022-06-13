@@ -8,70 +8,33 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  am="your perfect partner"
-  accnum="Account number please"
-  acno=""
-  pwd=""
+  aim = "your perfect partner"
+  acnum = "Account number please"
+  acno = ""
+  pswd = ""
 
  
   constructor(private router:Router,private ds:DataService) { }
 
   ngOnInit(): void {
   }
-acnoChange(event:any){
-  this.acno=event.target.value
-  console.log(this.acno);
+
+  //two way
+  Login(){
+    var acno = this.acno
+    var pswd = this.pswd
+
+    const result = this.ds.Login(acno,pswd)
   
+    if (result){
+      alert("Login Successfull")
+      this.router.navigateByUrl("dashboard")
+
+    }
+   
+  }
+
   
-}
-pwdChange(event:any){
-  this.pwd=event.target.value
-  console.log(this.pwd);
 
 }
-
-// one way bndng / two way bndng
-Login(){
-  var acno=this.acno
-  var pwd=this.pwd
-
-  let database=this.ds.database
-
-  if(acno in database){
-    if(pwd ==database[acno]["password"]){
-     alert("Login Successful")
-     this.router.navigateByUrl("dashboard")
-    }
-    else{
-      alert("Invalid Password")
-    }
-
-  }
-  else{
-    alert("user does not exist")
-  }
-}
-}
-//template referencing variables
-// Login(a:any,p:any){
-//   var acno=a.value
-//   var pwd=p.value
-
-//   let database=this.database
-
-//   if(acno in database){
-//     if(pwd ==database[acno]["password"]){
-//      alert("Login Successful")
-//     }
-//     else{
-//       alert("Invalid Password")
-//     }
-
-//   }
-//   else{
-//     alert("user does not exist")
-//   }
-// }
-// }
-
 
