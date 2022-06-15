@@ -15,8 +15,8 @@ export class RegstrComponent implements OnInit {
   //register form
   registerForm = this.fb.group({
     uname : ['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
-    acno : [''],
-    pswd : [''],
+    acno : ['',[Validators.required,Validators.pattern('[0-9]*')]],
+    pswd : ['',[Validators.required,Validators.pattern('[a-zA-Z 0-9]*')]],
   })
  
 
@@ -30,6 +30,7 @@ export class RegstrComponent implements OnInit {
    var acno = this.registerForm.value.acno
    var pswd = this.registerForm.value.pswd   
 
+   
    if(this.registerForm.valid){
 
     const result =  this.ds.register(uname,acno,pswd)

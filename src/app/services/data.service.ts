@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  currentUser:any
+
   db:any = {
     1000:{ "acno":1000,"username":"neer","password":1000,"balance":5000 },
     1001:{ "acno":1001,"username":"laisha","password":1001,"balance":3000 },
@@ -13,6 +15,21 @@ export class DataService {
   }
 
   constructor() { }
+  //get
+  getDetails(){
+
+  }
+
+  //to save details to local storage
+  saveDetails(){
+    if(this.db){
+      localStorage.setItem("database",JSON.stringify(this.db))
+    }
+
+    if(this.currentUser){
+      localStorage.setItem("currentUser",JSON.stringify(this.currentUser))
+    }
+  }
 
   //Login
   Login(acno:any,pswd:any){
@@ -21,6 +38,8 @@ export class DataService {
   
     if(acno in db){
       if (pswd == db[acno]["password"]){
+        this.currentUser = db [acno] ["username"]
+        this.saveDetails()
         return true
        
       }
@@ -51,6 +70,7 @@ export class DataService {
       "balance":0
     }
     console.log(db);
+    this.saveDetails()
     
     return true
   }
@@ -68,6 +88,7 @@ deposit(acno:any,password:any,amt:any){
     if (password == db [acno] ["password"]){
       
       db[acno]["balance"] += amount
+      this.saveDetails()
       return db[acno]["balance"]
     }
 
@@ -97,6 +118,7 @@ withdraw(acno:any,password:any,amt:any){
       if(db[acno] ["balance"] > amount){
 
         db[acno] ["balance"] -= amount
+        this.saveDetails()
         return db[acno] ["balance"]
       }
 

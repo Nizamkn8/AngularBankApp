@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,41 +9,67 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent implements OnInit {
 
- acno = ""
- pswd = ""
- amount = ""
 
- acno1 = ""
- pswd1 = ""
- amount1 = ""
-  constructor(private ds:DataService) { }
+ depositForm = this.fb.group({
+  acno : ['',[Validators.required,Validators.pattern('[0-9]*')]],
+  pswd : ['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]],
+  amount : ['',[Validators.required,Validators.pattern('[0-9]*')]]
+ })
+
+ withdrawForm = this.fb.group({
+  acno1 : ['',[Validators.required,Validators.pattern('[0-9]*')]],
+  pswd1 : ['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]],
+  amount1 : ['',[Validators.required,Validators.pattern('[0-9]*')]]
+ })
+ 
+  user : any
+
+  constructor(private ds:DataService,private fb:FormBuilder) {
+    this.user = this.ds.currentUser
+   }
 
   ngOnInit(): void {
   }
 
   deposit(){
-    var acno = this.acno
-    var pswd = this.pswd
-    var amount = this.amount
+    var acno = this.depositForm.value.acno
+    var pswd = this.depositForm.value.pswd
+    var amount = this.depositForm.value.amount
 
-    const result = this.ds.deposit(acno,pswd,amount)
+    if(this.depositForm.valid){
+      const result = this.ds.deposit(acno,pswd,amount)
 
-    if(result){
-      alert(amount +" deposited Successfully. Balance is " + result)
+      if(result){
+        alert(amount +" deposited Successfully. Balance is " + result)
+      }
     }
+    else{
+      alert("Invalid Form")
+    }
+
+   
   }
 
 
   withdraw(){
-    var acno = this.acno1
-    var pswd = this.pswd1
-    var amount = this.amount1
-
-    const result = this.ds.withdraw(acno,pswd,amount)
+    var acno = this.withdrawForm.value.acno1
+    var pswd = this.withdrawForm.value.pswd1
+    var amount = this.withdrawForm.value.amount1
+    
+    
+    if(this.withdrawForm.valid){
+      const result = this.ds.withdraw(acno,pswd,amount)
 
     if(result){
       alert(amount +" amount has been withdrawed.New balance is : "+ result)
     }
+
+    }
+    else{
+      alert("Invalid Form")
+    }
+
+    
   }
 
 
