@@ -10,15 +10,13 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./regstr.component.css']
 })
 export class RegstrComponent implements OnInit {
-  uname = "";
-  acno = "";
-  pswd = "";
+  
 
   //register form
   registerForm = this.fb.group({
-    uname : "",
-    acno : "",
-    pswd : ""
+    uname : ['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
+    acno : [''],
+    pswd : [''],
   })
  
 
@@ -28,11 +26,13 @@ export class RegstrComponent implements OnInit {
   }
 
  register(){
-   var uname = this.uname
-   var acno = this.acno
-   var pswd = this.pswd
+   var uname = this.registerForm.value.uname
+   var acno = this.registerForm.value.acno
+   var pswd = this.registerForm.value.pswd   
 
-   const result =  this.ds.register(uname,acno,pswd)
+   if(this.registerForm.valid){
+
+    const result =  this.ds.register(uname,acno,pswd)
 
    if (result){
      alert("Successfully registered")
@@ -42,6 +42,13 @@ export class RegstrComponent implements OnInit {
    else{
      alert("Already existing customer.... Please login!")
    }
+   }
+
+   else{
+    alert("invalid form")
+   }
+  
+   
  }
 
 }
