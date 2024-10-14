@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
    
   }
 
+  clicked(){
+    alert("this button clicked")
+  }
+
   
 
 }

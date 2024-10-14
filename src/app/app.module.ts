@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegstrComponent } from './regstr/RegstrComponent';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
+import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import { AnimationDemoComponent } from './animation-demo/animation-demo.componen
     DashboardComponent,
     RegstrComponent,
     TransactionComponent,
-    AnimationDemoComponent
+    AnimationDemoComponent,
+    DeleteConfirmComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
